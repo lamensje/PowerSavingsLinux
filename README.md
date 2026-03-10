@@ -55,9 +55,7 @@ enable_aspm.sh
 
 #ROOT_COMPLEX="00:1c.1"
 #ROOT_COMPLEX="00:00.0"
-#ROOT_COMPLEX=$(ls /sys/bus/pci/devices/ | head -n 1 | sed 's/0000://g')
 ROOT_COMPLEX=$(lspci | grep "Root " | head -n 1 | sed 's/\ .*//g')
-#echo -e "\e[33mRoot Complex: $ROOT_COMPLEX\e[0m"
 #ENDPOINT="03:00.0"
 #ENDPOINT="05:00.0"
 ENDPOINT=$1
@@ -76,7 +74,7 @@ ASPM_SETTING=3
 
 function aspm_setting_to_string()
 {
-    case $1 in
+    case $2 in
     0)
         echo -e "\t${BLUE}L0 only${NORMAL}, ${RED}ASPM disabled${NORMAL}"
         ;;
@@ -89,7 +87,7 @@ function aspm_setting_to_string()
         echo -e "\t${GREEN}L1 and L0s${NORMAL}"
         ;;
     *)
-        echo -e "\t${RED}Invalid${NORMAL}"
+        #echo -e "\t${RED}Invalid${NORMAL}"
         ;;
     esac
 }
