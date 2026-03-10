@@ -55,7 +55,8 @@ enable_aspm.sh
 
 #ROOT_COMPLEX="00:1c.1"
 #ROOT_COMPLEX="00:00.0"
-ROOT_COMPLEX=$(ls /sys/bus/pci/devices/ | head -n 1 | sed 's/0000://g')
+#ROOT_COMPLEX=$(ls /sys/bus/pci/devices/ | head -n 1 | sed 's/0000://g')
+ROOT_COMPLEX=$(lspci | grep "Root " | head -n 1 | sed 's/\ .*//g')
 #echo -e "\e[33mRoot Complex: $ROOT_COMPLEX\e[0m"
 #ENDPOINT="03:00.0"
 #ENDPOINT="05:00.0"
@@ -280,7 +281,7 @@ echo
 
 forceASPM.sh
 ```
-pci=$(ls /sys/bus/pci/devices/ | sed 's/0000://g')
+pci=$(lspci -vv | awk '/ASPM.*?abled/{print $0}' RS= | grep -P '(^[a-z0-9])' | sed 's/\ .*//g')
 for device in $pci
 do
  echo -e "\e[33m$device\e[0m"
