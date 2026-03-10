@@ -72,7 +72,7 @@ ENDPOINT=$1
 # 1    0b01    L0s only
 # 2    0b10    L1 only
 # 3    0b11    L1 and L0s
-ASPM_SETTING=2
+ASPM_SETTING=3
 
 function aspm_setting_to_string()
 {
